@@ -5,9 +5,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                {% for i in 1..4 %}
+                {% for id, movie in movies %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Movie {{ i }}</a>
+                    <a class="nav-link" href="{{ path('app_movie_details', {id: id + 1}) }}">{{ movie.title }}</a>
                 </li>
                 {% endfor %}
             </ul>
