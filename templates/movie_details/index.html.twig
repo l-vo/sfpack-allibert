@@ -4,9 +4,9 @@
 
 {% block body %}
 <h1>{{ movie.title }}</h1>
-<img src="{{ asset('build/images/' ~ movie.image) }}" alt="Image movie {{ movie.title }}" />
+<img src="{{ asset('build/images/' ~ movie.poster) }}" alt="Image movie {{ movie.title }}" />
 <ul>
     <li>released at: {{ movie.releasedAt|format_date }}</li>
-    <li>genres: {{ movie.genres|join(', ') }}</li>
+    <li>genres: {{ movie.genre|map(genre => genre.name)|join(', ') }}</li>
 </ul>
 {% endblock %}
