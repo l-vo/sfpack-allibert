@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-        {{ include('_navbar.html.twig') }}
+        {{ render(controller('App\\Controller\\NavbarController', {mainRequestPath: app.request.pathInfo})) }}
         {% block body %}{% endblock %}
     </body>
 </html>
