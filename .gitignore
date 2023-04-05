@@ -25,3 +25,11 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> upload fixture files ###
+public/uploads
+!public/uploads/chat.jpg
+!public/uploads/ames.jpg
+!public/uploads/mario.jpg
+!public/uploads/miracles.webp
+###< upload fixture files ###

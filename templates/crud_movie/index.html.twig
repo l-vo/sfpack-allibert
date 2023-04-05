@@ -23,9 +23,9 @@
                 <td>{{ movie.id }}</td>
                 <td>{{ movie.title }}</td>
                 <td>{{ movie.poster }}</td>
-                <td>{{ movie.country }}</td>
-                <td>{{ movie.releasedAt ? movie.releasedAt|date('Y-m-d') : '' }}</td>
-                <td>{{ movie.price }}</td>
+                <td>{{ movie.country|country_name }}</td>
+                <td>{{ movie.releasedAt ? movie.releasedAt|format_date : '' }}</td>
+                <td>{{ (movie.price / 100)|format_number({fraction_digit: 2}) }} €</td>
                 <td>
                     <a href="{{ path('app_crud_movie_show', {'id': movie.id}) }}">show</a>
                     <a href="{{ path('app_crud_movie_edit', {'id': movie.id}) }}">edit</a>

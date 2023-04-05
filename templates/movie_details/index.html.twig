@@ -4,9 +4,11 @@
 
 {% block body %}
 <h1>{{ movie.title }}</h1>
-<img src="{{ asset('build/images/' ~ movie.poster) }}" alt="Image movie {{ movie.title }}" />
+<img src="{{ asset('uploads/' ~ movie.poster) }}" alt="Image movie {{ movie.title }}" />
 <ul>
     <li>released at: {{ movie.releasedAt|format_date }}</li>
     <li>genres: {{ movie.genre|map(genre => genre.name)|join(', ') }}</li>
+    <li>price: {{ (movie.price / 100)|format_number({fraction_digit: 2}) }} €</li>
+    <li>country: {{ movie.country|country_name }}</li>
 </ul>
 {% endblock %}
