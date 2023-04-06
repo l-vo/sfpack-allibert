@@ -14,6 +14,7 @@
                 <th>Country</th>
                 <th>ReleasedAt</th>
                 <th>Price</th>
+                <th>Rated</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{{ movie.country|country_name }}</td>
                 <td>{{ movie.releasedAt ? movie.releasedAt|format_date : '' }}</td>
                 <td>{{ (movie.price / 100)|format_number({fraction_digit: 2}) }} €</td>
+                <td>{{ movie.rated }}</td>
                 <td>
                     <a href="{{ path('app_crud_movie_show', {'id': movie.id}) }}">show</a>
                     <a href="{{ path('app_crud_movie_edit', {'id': movie.id}) }}">edit</a>

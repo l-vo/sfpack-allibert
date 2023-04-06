@@ -29,6 +29,7 @@ class MovieType extends AbstractType
             ->add('country', CountryType::class)
             ->add('releasedAt', DateType::class, ['widget' => 'single_text', 'input' => 'datetime_immutable'])
             ->add('price', NumberType::class, ['scale' => 2])
+            ->add('rated')
             ->add('genre', EntityType::class, ['class' => Genre::class, 'choice_label' => 'name', 'multiple' => true])
         ;
 

@@ -19,6 +19,7 @@ class MovieFixtures extends Fixture
             ->setPoster('mario.jpg')
             ->setCountry('US')
             ->setPrice(1500)
+            ->setRated('N/A')
         ;
         $manager->persist($movie);
 
@@ -30,6 +31,7 @@ class MovieFixtures extends Fixture
             ->setPoster('chat.jpg')
             ->setCountry('FR')
             ->setPrice(2099)
+            ->setRated('N/A')
         ;
         $manager->persist($movie);
 
@@ -40,6 +42,7 @@ class MovieFixtures extends Fixture
             ->setPoster('miracles.webp')
             ->setCountry('GB')
             ->setPrice(2350)
+            ->setRated('N/A')
         ;
         $manager->persist($movie);
 
@@ -50,6 +53,7 @@ class MovieFixtures extends Fixture
             ->setPoster('ames.jpg')
             ->setCountry('FR')
             ->setPrice(1950)
+            ->setRated('N/A')
         ;
         $manager->persist($movie);
 

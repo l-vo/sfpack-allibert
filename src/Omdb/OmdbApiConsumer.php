@@ -14,14 +14,25 @@ final class OmdbApiConsumer
     {
         $response = $this->omdbApi->request('GET', '/', [
             'query' => [
-                'i' => $id
+                'i' => $id,
             ],
         ]);
 
-        if ($response->getStatusCode() === 200) {
-            return $response->toArray();
-        }
+        $data = $response->toArray();
 
-        return null;
+        return isset($data['imdbID']) ? $data : null;
+    }
+
+    public function searchMovie(string $search): ?array
+    {
+        $response = $this->omdbApi->request('GET', '/', [
+            'query' => [
+                's' => $search,
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        return isset($data['Search']) ? $data['Search'] : null;
     }
 }
