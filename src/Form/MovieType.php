@@ -14,17 +14,20 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MovieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $posterRequired = $options['poster_required'];
+
         $builder
             ->add('title')
             ->add('poster', FileType::class, [
                 'mapped' => false,
-                'required' => false,
-                'constraints' => [new Image()]
+                'required' => $posterRequired,
+                'constraints' => array_merge([new Image()], $posterRequired ? [new NotBlank()] : []),
             ])
             ->add('country', CountryType::class)
             ->add('releasedAt', DateType::class, ['widget' => 'single_text', 'input' => 'datetime_immutable'])
@@ -58,6 +61,9 @@ class MovieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Movie::class,
+            'poster_required' => true,
         ]);
+
+        $resolver->setAllowedTypes('poster_required', 'bool');
     }
 }

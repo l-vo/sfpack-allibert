@@ -59,7 +59,9 @@ class CrudMovieController extends AbstractController
     #[Route('/{id}/edit', name: 'app_crud_movie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Movie $movie, MovieRepository $movieRepository): Response
     {
-        $form = $this->createForm(MovieType::class, $movie);
+        // poster is not required on edit because it's required on create and it can't be removed after
+        // so only updating with another image is possible
+        $form = $this->createForm(MovieType::class, $movie, ['poster_required' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
