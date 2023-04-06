@@ -39,6 +39,11 @@ class Movie
     #[ORM\Column]
     private ?int $price = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 3)]
+    #[ORM\Column(length: 3)]
+    private ?string $rated;
+
     #[ORM\ManyToMany(targetEntity: Genre::class)]
     private Collection $genre;
 
@@ -108,6 +113,18 @@ class Movie
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getRated(): ?string
+    {
+        return $this->rated;
+    }
+
+    public function setRated(?string $rated): self
+    {
+        $this->rated = $rated;
 
         return $this;
     }
