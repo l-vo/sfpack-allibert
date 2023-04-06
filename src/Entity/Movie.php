@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -16,18 +17,25 @@ class Movie
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 150)]
     #[ORM\Column(length: 150)]
     private ?string $title = null;
 
+    #[Assert\Length(max: 80)]
     #[ORM\Column(length: 80)]
     private ?string $poster = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2)]
     #[ORM\Column(length: 2)]
     private ?string $country = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $releasedAt = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column]
     private ?int $price = null;
 

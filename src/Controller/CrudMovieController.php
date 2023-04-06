@@ -6,13 +6,19 @@ use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/crud/movie')]
 class CrudMovieController extends AbstractController
 {
+    public function __construct(private SluggerInterface $slugger)
+    {
+    }
+
     #[Route('/', name: 'app_crud_movie_index', methods: ['GET'])]
     public function index(MovieRepository $movieRepository): Response
     {
@@ -29,6 +35,8 @@ class CrudMovieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->uploadFile($form->get('poster')->getData(), $movie);
+
             $movieRepository->save($movie, true);
 
             return $this->redirectToRoute('app_crud_movie_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +63,8 @@ class CrudMovieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->uploadFile($form->get('poster')->getData(), $movie);
+
             $movieRepository->save($movie, true);
 
             return $this->redirectToRoute('app_crud_movie_index', [], Response::HTTP_SEE_OTHER);
@@ -74,5 +84,22 @@ class CrudMovieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_crud_movie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function uploadFile(?UploadedFile $poster, Movie $movie): void
+    {
+        // File upload, see https://symfony.com/doc/current/controller/upload_file.html
+        if ($poster) {
+            $originalFilename = pathinfo($poster->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $this->slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$poster->guessExtension();
+
+            $poster->move(
+                $this->getParameter('app.uploads'),
+                $newFilename
+            );
+
+            $movie->setPoster($newFilename);
+        }
     }
 }
