@@ -6,15 +6,14 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class OmdbApiConsumer
 {
-    public function __construct(private HttpClientInterface $httpClient, private string $apiKey)
+    public function __construct(private HttpClientInterface $omdbApi)
     {
     }
 
     public function findMovie(string $id): ?array
     {
-        $response = $this->httpClient->request('GET', 'http://www.omdbapi.com/', [
+        $response = $this->omdbApi->request('GET', '/', [
             'query' => [
-                'apiKey' => $this->apiKey,
                 'i' => $id
             ],
         ]);
