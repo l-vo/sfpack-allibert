@@ -1,0 +1,7 @@
+framework:
+    http_client:
+        scoped_clients:
+            omdb_api:
+                base_uri: '%env(OMDBAPI_URL)%'
+                query:
+                    apiKey: '%env(OMDBAPI_KEY)%'
