@@ -27,8 +27,8 @@ class Movie
     private ?string $poster = null;
 
     #[Assert\NotBlank]
-    #[Assert\Length(max: 2)]
-    #[ORM\Column(length: 2)]
+    #[Assert\Length(max: 20)]
+    #[ORM\Column(length: 20)]
     private ?string $country = null;
 
     #[Assert\NotBlank]

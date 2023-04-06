@@ -4,7 +4,7 @@
 
 {% block body %}
 <h1>{{ movie.title }}</h1>
-<img src="{{ asset('uploads/' ~ movie.poster) }}" alt="Image movie {{ movie.title }}" />
+<img src="{{ movie.poster starts with 'http' ? movie.poster : asset('uploads/' ~ movie.poster) }}" alt="Image movie {{ movie.title }}" />
 <ul>
     <li>released at: {{ movie.releasedAt|format_date }}</li>
     <li>genres: {{ movie.genre|map(genre => genre.name)|join(', ') }}</li>
