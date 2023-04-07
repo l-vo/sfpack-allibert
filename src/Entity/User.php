@@ -27,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'date_immutable')]
     private ?\DateTimeImmutable $birthdate;
 
+    #[ORM\Column(type: 'date_immutable', nullable: true)]
+    private ?\DateTimeImmutable $lastLogin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isOlderThan(int $age, \DateTimeInterface $now) : bool
     {
         return $now->diff($this->birthdate)->y >= $age;
+    }
+
+    public function getLastLogin(): ?\DateTimeImmutable
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeImmutable $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
     }
 
     public function eraseCredentials()
