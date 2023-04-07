@@ -44,7 +44,7 @@ class ImportMoviesCommand extends Command
 
         $insertedData = [];
         foreach ($idOrTitles as $idOrTitle) {
-            $inserted = $this->processTitleOrId($idOrTitle, $io);
+            $inserted = $this->processTitleOrId($idOrTitle, $io, $input->isInteractive());
             if ($inserted === null) {
                 continue;
             }
@@ -59,11 +59,17 @@ class ImportMoviesCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function processTitleOrId(string $idOrTitle, SymfonyStyle $io): ?array
+    private function processTitleOrId(string $idOrTitle, SymfonyStyle $io, bool $isInteractive): ?array
     {
         $data = $this->omdbApiConsumer->findMovie($idOrTitle);
 
         if ($data === null) {
+            if (!$isInteractive) {
+                $io->warning(sprintf('Movie %s not found and search can\'t be processed in non-interactive mode', $idOrTitle));
+
+                return null;
+            }
+
             $data = $this->searchMovie($idOrTitle, $io);
         }
 
