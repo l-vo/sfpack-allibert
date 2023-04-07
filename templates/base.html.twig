@@ -14,6 +14,11 @@
     </head>
     <body>
         {{ render(controller('App\\Controller\\NavbarController', {mainRequestPath: app.request.pathInfo})) }}
+        {% if app.user %}
+            <div class="mb-3">
+                <a href="{{ logout_path() }}">Logout</a>
+            </div>
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/crud/genre')]
+#[Route('/admin/crud/genre')]
 class CrudGenreController extends AbstractController
 {
     #[Route('/', name: 'app_crud_genre_index', methods: ['GET'])]
