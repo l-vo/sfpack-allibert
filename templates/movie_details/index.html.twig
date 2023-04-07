@@ -10,5 +10,10 @@
     <li>genres: {{ movie.genre|map(genre => genre.name)|join(', ') }}</li>
     <li>price: {{ (movie.price / 100)|format_number({fraction_digit: 2}) }} €</li>
     <li>country: {{ movie.country|country_name }}</li>
+    <li>rated: {{ movie.rated }}</li>
 </ul>
+
+<a href="{{ path('app_movie_ordered', {id: movie.id}) }}" class="{{ html_classes('btn', 'btn-primary', 'btn-lg', {disabled: not is_granted('ORDER_MOVIE', movie)}) }}" role="button" aria-pressed="true">
+    Order movie
+</a>
 {% endblock %}
