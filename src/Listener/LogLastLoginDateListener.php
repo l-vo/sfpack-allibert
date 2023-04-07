@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 #[AsEventListener(LoginSuccessEvent::class, 'onLoginSuccess')]
-final class LogLastLoginDate
+final class LogLastLoginDateListener
 {
     public function __construct(private UserRepository $userRepository)
     {
