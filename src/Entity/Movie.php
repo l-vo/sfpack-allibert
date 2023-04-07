@@ -152,4 +152,14 @@ class Movie
 
         return $this;
     }
+
+    public function getMinAge(): ?int
+    {
+        return [
+            'PG' => 13,
+            'PG-13' => 13,
+            'R' => 17,
+            'NC-17' => 17,
+        ][$this->rated] ?? null;
+    }
 }
